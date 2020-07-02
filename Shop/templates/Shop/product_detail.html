@@ -1,0 +1,27 @@
+{% extends "Shop/base.html" %}
+{% block content %}
+{% load humanize %}
+{% if product %}
+<div class="row">
+    <div class="col-8">
+        <div class="row" style="padding-left: 10px; margin-bottom: 5px;">
+            <small class="col-8">Đăng tải lúc: {{ product.created_at }} </small>
+            <small class="col-4">Cập nhật lúc: {{ product.updated_at }}</small>
+        </div>
+        <div style="height: 38.5rem; border: 1px solid; border-radius: 15px; padding-left: 5px;">
+            <h2>{{ product.title }}</h2>
+            <p>{{ product.description }}</p>
+        </div>
+    </div>
+
+    <div class="col-4" style="padding-right: 40px; padding-top: 25px;">
+        <img src="../../media/{{ product.image }}" class="img-fluid" alt="">
+        <p>
+            <center><b>Giá: {{product.price | intcomma}} vnd</b></center>
+        </p>
+    </div>
+</div>
+{% else %}
+<p>404NotFound: Product does not exit</p>
+{% endif %}
+{% endblock %}

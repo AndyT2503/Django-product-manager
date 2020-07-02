@@ -1,0 +1,82 @@
+{% extends "Shop/base.html" %}
+{% load product_tags %}
+
+
+{% block style %}
+<style>
+    .image-preview {
+        width: 300px;
+        min-height: 350px;
+        border: 2px solid #dddddd;
+        margin-top: 15px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #cccccc;
+    }
+
+    .image-preview__image {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<h5>{{title}}</h5>
+<form method="POST" class="row" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-group col-7 col-md-7">
+        <label for="title"><b>Tên sản phẩm</b></label>
+        {{form.title}}
+        <label for="price"><b>Giá bán</b></label>
+        {{form.price}}
+        <div class="form-group">
+            <label for="description"><b>Mô tả sản phẩm</b></label>
+            {{form.description}}
+        </div>
+        <div class="form-group">
+            <label for="brand"><b>Hãng sản xuất</b></label>
+            {{form.brand}}
+        </div>
+    <button type="submit" class="btn btn-success">{{button}}</button>
+    </div>
+    <div class="form-group col-5 col-md-5">
+        <h6>Hình ảnh sản phẩm</h6>
+        {{form.image}}
+        <div id="imagePreview" style="margin-top: 15px;">
+            <img src="" alt="" class="image-preview__image img-fluid">
+        </div>
+    </div>
+    
+</form>
+<p style="color: red;">{{error}}</p>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    const inpFile = document.getElementById('imgInp');
+    const previewContainer = document.getElementById('imagePreview')
+    const previewImage = previewContainer.querySelector(".image-preview__image");
+
+    inpFile.addEventListener("change", function () {
+        const file = this.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            previewImage.style.display = "block";
+
+            reader.addEventListener("load", function () {
+                console.log(this);
+                previewImage.setAttribute("src", this.result);
+            });
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+</script>
+{% endblock %}

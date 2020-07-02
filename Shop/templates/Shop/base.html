@@ -1,0 +1,117 @@
+{% load static %}
+
+
+{% load product_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <title>Lab5</title>
+
+    {% block style %}
+    {% endblock %}
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/home"><img src="{% static 'Shop/images/logo/logo.png' %}" width="30"
+                    height="30" class="d-inline-block align-top" alt="logo"> V-shop</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Trang chủ <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sản phẩm
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% show_brands %}
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/product/post">Đăng bài</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" method="POST" action="/search/">
+                    {% csrf_token %}
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <section style="padding: 20px 60px; min-height: 42.5rem;">
+        {% block content %}
+        {% endblock %}
+
+    </section>
+
+    <div class="pagination" style="margin: 10px 1rem 10px 1rem">
+        {% block page %}
+        {% endblock %}
+    </div>
+    <hr style="margin: 2px 1rem 10px 1rem">
+    <p style="margin-bottom: 5px; margin-left: 1rem;">Số sản phẩm hiện có: {%total_posts%} </p>
+    <footer class="page-footer font-small blue" style="
+    background-color: #343a40;">
+
+        <!-- Copyright -->
+        <div class=" footer-copyright text-center py-3" style="color: white;">© 2020 Copyright:
+            <a href="https://github.com/AndyT2503" style="color: white;"> github.com/AndyT2503</a>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+
+
+    {% block javascript %}
+    {% endblock %}
+    <script>
+        $(".delete").click(function (e) {
+            e.preventDefault();
+            let res = confirm("Do you want to delete?");
+            id = $(this).prop('name');
+            if (res) {
+                $.ajax({
+                    url: '{% url "Shop:deleteproduct" %}',
+                    dataType: 'json',
+                    data: {
+                        "id": id
+                    },
+                    success: function (data) {
+                        if (data.deleted) {
+                            $("#product" + id).remove();
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
