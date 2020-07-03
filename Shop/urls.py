@@ -12,7 +12,7 @@ urlpatterns = [
    path('product/post/', views.product_create_view),
    path('product/update/<int:pk>/', views.product_update_view, name = "updateproduct"),
    path('product/delete/', views.DeleteProduct.as_view(), name = "deleteproduct"),
-
+   path('autocomplete/', views.autocomplete, name="autocomplete"),
 
 ]
 

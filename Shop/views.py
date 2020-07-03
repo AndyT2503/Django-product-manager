@@ -111,6 +111,24 @@ def product_update_view(request, pk):
                             'title': "Cập nhật thông tin sản phẩm", "button": "Cập nhật"})
     return render(request, 'Shop/product_form.html', {'form': form, 'title': "Cập nhật thông tin sản phẩm", "button": "Cập nhật"})
 
+def autocomplete(request):
+    if 'term' in request.GET:
+        products_list = Product.objects.filter(title__icontains=request.GET.get('term')).order_by("-created_at")
+        brands_list = Brand.objects.filter(Name__icontains=request.GET.get('term'))
+        res = list()
+        if (brands_list):
+            for brand in brands_list:
+                p_list = Product.objects.filter(brand=brand).order_by("-created_at")
+                for p in p_list:
+                    res.append(p.title)
+                res.append(brand.Name)
+        else:
+            for product in products_list:
+                res.append(product.title)
+        
+        return JsonResponse(res, safe=False)    
+    return render(request, 'Shop/base.html')
+
 
 
 class DeleteProduct(View):
