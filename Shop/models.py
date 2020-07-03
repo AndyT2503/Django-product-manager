@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+from ckeditor.fields import RichTextField
 
 
 
@@ -15,7 +15,7 @@ class Brand(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=100, unique=True)
     price = models.IntegerField(validators=[MinValueValidator(10000)])
-    description = models.TextField()
+    description = RichTextField()
     image = models.ImageField()
     brand = models.ForeignKey(
         Brand, on_delete=models.CASCADE, related_name='sale')

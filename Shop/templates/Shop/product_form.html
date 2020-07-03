@@ -36,7 +36,8 @@
         {{form.price}}
         <div class="form-group">
             <label for="description"><b>Mô tả sản phẩm</b></label>
-            {{form.description}}
+            {{form.description | safe}}
+            {{form.media}}
         </div>
         <div class="form-group">
             <label for="brand"><b>Hãng sản xuất</b></label>
@@ -44,7 +45,7 @@
         </div>
     <button type="submit" class="btn btn-success">{{button}}</button>
     </div>
-    <div class="form-group col-5 col-md-5">
+    <div class="form-group col-5 col-md-5" style="padding-left: 30px;">
         <h6>Hình ảnh sản phẩm</h6>
         {{form.image}}
         <div id="imagePreview" style="margin-top: 15px;">

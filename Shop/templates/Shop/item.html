@@ -10,12 +10,12 @@ background-color: {% if product == first_product %}
                   {% endif %};" 
 id="product{{product.id}}">
     <img src="{{link}}/media/{{ product.image}} " class="mr-3" width="120" height="120" alt="Sample Image"
-        style="border-radius: 25px;">
+        style="margin-top: auto; margin-bottom: auto;">
     <div class="media-body" style="position: relative;">
         <h5 class="mt-0"><a style="color: black; text-decoration: none;"
                 href="/product/{{product.id}}">{{ product.title }} <small><i>Ngày đăng:
                         {{ product.created_at }}</i></small></a></h5>
-        <p>{{product.description | truncatewords:50}}</p>
+        <p>{{product.description | truncatewords:30 | safe}}</p>
         <p><b>Giá bán: {{product.price | intcomma}} vnđ</b></p>
         <div style="position: absolute; right: 20px; bottom: 0.5px;">
             {% include "Shop/function.html" %}
