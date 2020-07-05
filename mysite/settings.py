@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'Shop',
     'django.contrib.humanize',
     'ckeditor',
+    'widget_tweaks',
 ]
+
+#LOGIN_REDIRECT_URL = 'home/'
+
+GOOGLE_RECAPTCHA_SECRET_KEY = '6Lf2SK0ZAAAAADN0vZAxeL5QuFP77S2Ye3bMIYCk'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -125,3 +130,11 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'Shop/static'
 MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
 MEDIA_URL = '/media/'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'htu25399@gmail.com'
+EMAIL_HOST_PASSWORD = 'ldnxbdkgcekxdamn'

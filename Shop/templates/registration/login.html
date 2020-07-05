@@ -1,0 +1,47 @@
+{% extends "registration/base.html" %}
+
+{% block content %}
+<div class="card-header">
+    <h3 style="color: white;">Sign In</h3>
+</div>
+<div class="card-body">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="input-group form-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            {{form.username}}
+        
+        </div>
+        <div class="input-group form-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            {{form.password}}
+
+        </div>
+        
+        <div class="row align-items-center remember">
+            {{form.remember_me}} Remember Me
+        </div>
+        
+        <div class="g-recaptcha" data-sitekey="6Lf2SK0ZAAAAAH_juzDhMv-lFiIqGbfYDKi_Dh-4" style="margin-top: 5px;"></div>
+        {% if form.errors %}
+        <div class="alert alert-danger alert-dismissible fade show" style="margin-top: 6px;">
+            <strong>Error!</strong> Wrong username or password.
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+        {% endif %}
+        <div class="form-group">
+            <input type="submit" style="margin-top: 0.75rem;" value="Login"
+                class=" btn float-right btn-light">
+        </div>
+    </form>
+</div>
+<div class="card-footer">
+    <div class="d-flex justify-content-center">
+        <a href="/password/reset">Forgot your password?</a>
+    </div>
+</div>
+{% endblock %}
